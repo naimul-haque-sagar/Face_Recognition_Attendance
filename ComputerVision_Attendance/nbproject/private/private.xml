@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/Recognizer/PersonRecognizer.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/util/ModelPerson.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/Capture/RegisterPerson.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/Capture/CaptureFace.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/main_pages/Menu.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/main_pages/Login.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/util/ConnectDatabase.java</file>
+            <file>file:/home/sagar/Desktop/Nu/Face_Recognition_Attendance/ComputerVision_Attendance/src/util/ControlPerson.java</file>
+        </group>
     </open-files>
 </project-private>
