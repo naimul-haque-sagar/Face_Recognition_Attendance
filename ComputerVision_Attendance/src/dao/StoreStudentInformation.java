@@ -1,27 +1,36 @@
 package dao;
 
-import db_connection.ConnectDatabase;
+import db_connection.DB_Connection;
 import models.Student;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class StoreStudentInformation {
-    ConnectDatabase cd=new ConnectDatabase();
-    public void insert(Student mp){
-        try {
-            cd.connect();
-            PreparedStatement ps=
-                    cd.con.prepareStatement("INSERT INTO person (id,first_name,last_name,dob,office) values (?,?,?,?,?)");
-            ps.setInt(1,mp.getId());
-            ps.setString(2,mp.getFirst_name());
-            ps.setString(3, mp.getLast_name());
-            ps.setInt(4, mp.getStudent_class());
-            ps.setString(5, mp.getClass_section());
-            ps.executeUpdate();
-            System.out.println(""+mp.getFirst_name());
-            cd.disconnect();
-        } catch (SQLException e) {
-            System.out.println("Error occured ...."+e);
+
+    DB_Connection dbConnectionClass = new DB_Connection();
+
+    public void insertStudentInformation(Student student) throws SQLException {
+        dbConnectionClass.connectDatabase();
+        if (dbConnectionClass.ifTableExists("student")) {
+            System.out.println("table exists");
+            insertStudent(student);
+        } else {
+            System.out.println("table not exists");
+            dbConnectionClass.createTable("student");
+            insertStudent(student);
         }
+        dbConnectionClass.disconnectDatabase();
+    }
+
+    private void insertStudent(Student student) throws SQLException {
+        PreparedStatement preparedStatement = dbConnectionClass.dbConnection.
+                prepareStatement("INSERT INTO student (id,first_name,last_name,dob,office) values (?,?,?,?,?)");
+        preparedStatement.setInt(1, student.getId());
+        preparedStatement.setString(2, student.getFirst_name());
+        preparedStatement.setString(3, student.getLast_name());
+        preparedStatement.setInt(4, student.getStudent_class());
+        preparedStatement.setString(5, student.getClass_section());
+        preparedStatement.executeUpdate();
+        System.out.println("" + student.getFirst_name());
     }
 }

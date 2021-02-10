@@ -26,10 +26,10 @@ import org.bytedeco.opencv.opencv_face.FaceRecognizer;
 import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
-import db_connection.ConnectDatabase;
+import db_connection.DB_Connection;
 
-public class PersonRecognizer extends javax.swing.JFrame {
-    private PersonRecognizer.DaemonThread myThread = null;
+public class AttendanceCheck extends javax.swing.JFrame {
+    private AttendanceCheck.DaemonThread myThread = null;
     VideoCapture webSource = null;
     Mat cameraImage = new Mat();
     CascadeClassifier cascade = new CascadeClassifier("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/haarcascade_frontalface_alt.xml");
@@ -38,9 +38,9 @@ public class PersonRecognizer extends javax.swing.JFrame {
     RectVector detectedFaces = new RectVector();
     String root ,firstNamePerson,lastNamePerson,officePerson,dobPerson;
     int idPerson;
-    ConnectDatabase cd = new ConnectDatabase();
+    DB_Connection cd = new DB_Connection();
 
-    public PersonRecognizer() {
+    public AttendanceCheck() {
         initComponents();
         recognizer.read("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/classifierLBPH.yml");
         recognizer.setThreshold(80);
@@ -120,14 +120,18 @@ public class PersonRecognizer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonRecognizer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonRecognizer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonRecognizer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonRecognizer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -136,7 +140,7 @@ public class PersonRecognizer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PersonRecognizer().setVisible(true);
+                new AttendanceCheck().setVisible(true);
             }
         });
     }
@@ -216,16 +220,16 @@ class DaemonThread implements Runnable {
 
                 @Override
                 protected Object doInBackground() throws Exception {
-                    cd.connect();
+                    cd.connectDatabase();
                     try {
                         String sql="SELECT * FROM person WHERE id ="+String.valueOf(idPerson);
                         cd.executesql(sql);
-                        while(cd.rs.next()){
-                            label_name.setText(cd.rs.getString("first_name")+" "+ cd.rs.getString("last_name"));
-                            labelOffice.setText(cd.rs.getString("office"));
+                        while(cd.resultSet.next()){
+                            label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
+                            labelOffice.setText(cd.resultSet.getString("office"));
                             
-                            System.out.println("person : "+cd.rs.getString("id"));
-                            Array ident=cd.rs.getArray(2);
+                            System.out.println("person : "+cd.resultSet.getString("id"));
+                            Array ident=cd.resultSet.getArray(2);
                             String[] person=(String[]) ident.getArray();
                             for (int i = 0; i < person.length; i++) {
                                 System.out.println(person[i]);
@@ -234,7 +238,7 @@ class DaemonThread implements Runnable {
                     } catch (Exception e) {
                     
                     }
-                    cd.disconnect();
+                    cd.disconnectDatabase();
                     return null;   
                 }
             };
@@ -250,7 +254,7 @@ class DaemonThread implements Runnable {
 
     public void startCamera() {
         webSource=new VideoCapture(0);
-        myThread=new PersonRecognizer.DaemonThread();
+        myThread=new AttendanceCheck.DaemonThread();
         Thread t=new Thread(myThread);
         t.setDaemon(true);
         myThread.runnable=true;

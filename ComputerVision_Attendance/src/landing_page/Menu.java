@@ -1,7 +1,7 @@
 package landing_page;
 
-import register.RegisterPerson;
-import attendance.PersonRecognizer;
+import register.Register;
+import attendance.AttendanceCheck;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -84,7 +84,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new RegisterPerson().setVisible(true);
+        new Register().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -92,7 +92,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new PersonRecognizer().setVisible(true);
+        new AttendanceCheck().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

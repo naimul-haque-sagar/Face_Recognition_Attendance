@@ -29,8 +29,11 @@ import org.bytedeco.opencv.opencv_face.FaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
-import db_connection.ConnectDatabase;
+import db_connection.DB_Connection;
 import dao.StoreStudentInformation;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Student;
 
 public class CaptureFace extends javax.swing.JFrame {
@@ -45,9 +48,9 @@ public class CaptureFace extends javax.swing.JFrame {
     RectVector detectedFaces = new RectVector();
     String root ,firstNamePerson,lastNamePerson,officePerson,dobPerson;
     int numSamples = 25, sample = 1,idPerson;
-    ConnectDatabase cd = new ConnectDatabase();
+    DB_Connection cd = new DB_Connection();
 
-    public CaptureFace(int id,String fName,String lName,String office,String dob) {
+    public CaptureFace(int id,String fName,String lName,String office,String dob){
         initComponents();
         idPerson=id;
         firstNamePerson=fName;
@@ -150,7 +153,7 @@ public class CaptureFace extends javax.swing.JFrame {
         protected volatile boolean runnable = false;
 
         @Override
-        public void run() {
+        public void run(){
             synchronized (this) {
                 while (runnable) {
                     try {
@@ -182,8 +185,12 @@ public class CaptureFace extends javax.swing.JFrame {
                                         sample++;
                                     }
                                     if (sample > 25) {
-                                        generate();
-                                        insertDatabase();
+//                                        generate();
+                                        try {
+                                            insertDatabase();
+                                        } catch (SQLException ex) {
+                                            Logger.getLogger(CaptureFace.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         System.out.println("person register done");
                                         stopCamera();
                                     }
@@ -248,16 +255,20 @@ public class CaptureFace extends javax.swing.JFrame {
         lbph.save("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/classifierLBPH.yml");
     }
 
-    public void insertDatabase() {
+    public void insertDatabase() throws SQLException{
         StoreStudentInformation storeStudentInformation = new StoreStudentInformation();
         Student  student = new Student();
         student.setId(idPerson);
         student.setFirst_name(firstNamePerson);
         student.setLast_name(lastNamePerson);
-        student.setStudent_class(HIDE_ON_CLOSE);
-        student.setClass_section(officePerson);
+        
+        student.setStudent_class(6);
+        student.setClass_section("a");
+        
+//        student.setStudent_class(HIDE_ON_CLOSE);
+//        student.setClass_section(officePerson);
 
-        storeStudentInformation.insert(student);
+        storeStudentInformation.insertStudentInformation(student);
     }
 
     public void stopCamera() {
