@@ -38,25 +38,33 @@ import models.Student;
 
 public class CaptureFace extends javax.swing.JFrame {
 
+    String harcascade= "/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/haarcascade_frontalface_alt.xml";
+    String root ,first_name,last_name,student_section;
+    int numSamples = 5, sample = 1,studentId,employeeId,student_class;
+    DB_Connection cd = new DB_Connection();
+    
     private CaptureFace.DaemonThread myThread = null;
     VideoCapture webSource = null;
     Mat cameraImage = new Mat();
-    CascadeClassifier cascade = 
-            new CascadeClassifier(
-                    "/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/haarcascade_frontalface_alt.xml");
+    CascadeClassifier cascade = new CascadeClassifier(harcascade);
     BytePointer mem = new BytePointer();
     RectVector detectedFaces = new RectVector();
-    String root ,firstNamePerson,lastNamePerson,officePerson,dobPerson;
-    int numSamples = 25, sample = 1,idPerson;
-    DB_Connection cd = new DB_Connection();
 
-    public CaptureFace(int id,String fName,String lName,String office,String dob){
+    public CaptureFace(int id,String first_name,String last_name,int student_class,String student_section){
         initComponents();
-        idPerson=id;
-        firstNamePerson=fName;
-        lastNamePerson=lName;
-        officePerson=office;
-        dobPerson=dob;
+        this.studentId=id;
+        this.first_name=first_name;
+        this.last_name=last_name;
+        this.student_class= student_class;
+        this.student_section= student_section;
+        startCamera();
+    }
+    
+    public CaptureFace(int id,String first_name,String last_name){
+        initComponents();
+        this.employeeId=id;
+        this.first_name=first_name;
+        this.last_name=last_name;
         startCamera();
     }
 
@@ -179,13 +187,13 @@ public class CaptureFace extends javax.swing.JFrame {
                                 if (saveButton.getModel().isPressed()) {
 
                                     if (sample <= numSamples) {
-                                        String cropped = "/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/person." +idPerson +"." + sample + ".jpg";
+                                        String cropped = "/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/student." +studentId +"." + sample + ".jpg";
                                         imwrite(cropped, face);
                                         counterLabel.setText(String.valueOf(sample));
                                         sample++;
                                     }
-                                    if (sample > 25) {
-//                                        generate();
+                                    if (sample > 5) {
+                                        generate();
                                         try {
                                             insertDatabase();
                                         } catch (SQLException ex) {
@@ -258,16 +266,11 @@ public class CaptureFace extends javax.swing.JFrame {
     public void insertDatabase() throws SQLException{
         StoreStudentInformation storeStudentInformation = new StoreStudentInformation();
         Student  student = new Student();
-        student.setId(idPerson);
-        student.setFirst_name(firstNamePerson);
-        student.setLast_name(lastNamePerson);
-        
-        student.setStudent_class(6);
-        student.setClass_section("a");
-        
-//        student.setStudent_class(HIDE_ON_CLOSE);
-//        student.setClass_section(officePerson);
-
+        student.setId(studentId);
+        student.setFirst_name(first_name);
+        student.setLast_name(last_name);
+        student.setStudent_class(student_class);
+        student.setClass_section(student_section);
         storeStudentInformation.insertStudentInformation(student);
     }
 

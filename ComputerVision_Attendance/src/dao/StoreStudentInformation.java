@@ -9,7 +9,7 @@ public class StoreStudentInformation {
 
     DB_Connection dbConnectionClass = new DB_Connection();
 
-    public void insertStudentInformation(Student student) throws SQLException {
+    public void insertStudentInformation(Student student) {
         dbConnectionClass.connectDatabase();
         if (dbConnectionClass.ifTableExists("student")) {
             System.out.println("table exists");
@@ -22,15 +22,18 @@ public class StoreStudentInformation {
         dbConnectionClass.disconnectDatabase();
     }
 
-    private void insertStudent(Student student) throws SQLException {
-        PreparedStatement preparedStatement = dbConnectionClass.dbConnection.
-                prepareStatement("INSERT INTO student (id,first_name,last_name,dob,office) values (?,?,?,?,?)");
-        preparedStatement.setInt(1, student.getId());
-        preparedStatement.setString(2, student.getFirst_name());
-        preparedStatement.setString(3, student.getLast_name());
-        preparedStatement.setInt(4, student.getStudent_class());
-        preparedStatement.setString(5, student.getClass_section());
-        preparedStatement.executeUpdate();
-        System.out.println("" + student.getFirst_name());
+    private void insertStudent(Student student) {
+        try {
+            PreparedStatement preparedStatement = dbConnectionClass.dbConnection.
+                    prepareStatement("INSERT INTO student (id,first_name,last_name,student_class,class_section) values (?,?,?,?,?)");
+            preparedStatement.setInt(1, student.getId());
+            preparedStatement.setString(2, student.getFirst_name());
+            preparedStatement.setString(3, student.getLast_name());
+            preparedStatement.setInt(4, student.getStudent_class());
+            preparedStatement.setString(5, student.getClass_section());
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            System.out.println(exception);
+        }
     }
 }

@@ -1,13 +1,15 @@
 package register;
 
+import register.*;
 import db_connection.DB_Connection;
 import java.sql.SQLException;
 
-public class Register extends javax.swing.JFrame {
+public class RegisterEmployee extends javax.swing.JFrame {
+
     int id = 1;
     DB_Connection dbConnection = new DB_Connection();
 
-    public Register() {
+    public RegisterEmployee() {
         initComponents();
         setIdForRegister();
     }
@@ -88,12 +90,11 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String fName = txt_first_name.getText();
-        String lName = txt_last_name.getText();
-        String dob = txt_dob.getText();
-        String office = txt_office.getText();
+        String first_name = txt_first_name.getText();
+        String last_name = txt_last_name.getText();
+
         int id = Integer.parseInt(txt_id_label.getText());
-        new CaptureFace(id, fName, lName, office, dob).setVisible(true);
+        new CaptureFace(id, first_name, last_name).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
@@ -110,21 +111,35 @@ public class Register extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Register().setVisible(true);
+                new RegisterEmployee().setVisible(true);
             }
         });
     }
@@ -152,14 +167,17 @@ public class Register extends javax.swing.JFrame {
         } else {
             dbConnection.createTable("student");
             dbConnection.executesql("SELECT id FROM student ORDER BY id DESC ");
-            System.out.println("Table created");
         }
         try {
-            dbConnection.resultSet.first();
-            txt_id_label.setText(String.valueOf(dbConnection.resultSet.getInt("id")));
-            id = Integer.parseInt(txt_id_label.getText());
-            id++;
-            txt_id_label.setText(String.valueOf(id));
+            if (dbConnection.resultSet != null) {
+                dbConnection.resultSet.first();
+                txt_id_label.setText(String.valueOf(dbConnection.resultSet.getInt("id")));
+                id = Integer.parseInt(txt_id_label.getText());
+                id++;
+                txt_id_label.setText(String.valueOf(id));
+            }else{
+                txt_id_label.setText(String.valueOf(id));
+            }
         } catch (NumberFormatException | SQLException e) {
             System.out.println(e);
         }
