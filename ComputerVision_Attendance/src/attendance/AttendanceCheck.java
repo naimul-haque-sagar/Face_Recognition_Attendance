@@ -29,6 +29,9 @@ import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import db_connection.DB_Connection;
 
 import config.Properties;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class AttendanceCheck extends javax.swing.JFrame {
     private AttendanceCheck.DaemonThread myThread = null;
@@ -44,6 +47,7 @@ public class AttendanceCheck extends javax.swing.JFrame {
 
     public AttendanceCheck() {
         initComponents();
+        this.setResizable(false);
         recognizer.read(Properties.basePath + "Computer_vision_attendance/Images/classifierLBPH.yml");
         recognizer.setThreshold(80);
         startCamera();
@@ -224,7 +228,7 @@ class DaemonThread implements Runnable {
                 protected Object doInBackground() throws Exception {
                     cd.connectDatabase();
                     try {
-                        String sql="SELECT * FROM person WHERE id ="+String.valueOf(idPerson);
+                        String sql="SELECT * FROM student WHERE id ="+String.valueOf(idPerson);
                         cd.executesql(sql);
                         while(cd.resultSet.next()){
                             label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
@@ -251,7 +255,9 @@ class DaemonThread implements Runnable {
       public void stopCamera() {
         myThread.runnable = false;
         webSource.release();
-        dispose();
+        
+        if(isDispose) 
+            dispose();
     }
 
     public void startCamera() {
@@ -262,4 +268,27 @@ class DaemonThread implements Runnable {
         myThread.runnable=true;
         t.start();
     }
+    
+    //TODO: on close action - call stopCamera
+    @Override
+    public synchronized void addWindowListener(WindowListener listener) {
+        
+        listener = new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                
+                stopCamera();
+            }
+        };
+    };
+
+    @Override
+    public void dispose() {
+        isDispose = false; // otherwise cause an infinite loop 
+        
+        stopCamera();
+        super.dispose();
+    }
+    
+    private boolean isDispose = true;
 }
