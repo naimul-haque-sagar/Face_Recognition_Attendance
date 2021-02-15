@@ -28,11 +28,13 @@ import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import db_connection.DB_Connection;
 
+import config.Properties;
+
 public class AttendanceCheck extends javax.swing.JFrame {
     private AttendanceCheck.DaemonThread myThread = null;
     VideoCapture webSource = null;
     Mat cameraImage = new Mat();
-    CascadeClassifier cascade = new CascadeClassifier("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/haarcascade_frontalface_alt.xml");
+    CascadeClassifier cascade = new CascadeClassifier( Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml");
     BytePointer mem = new BytePointer();
     FaceRecognizer recognizer=LBPHFaceRecognizer.create();
     RectVector detectedFaces = new RectVector();
@@ -42,7 +44,7 @@ public class AttendanceCheck extends javax.swing.JFrame {
 
     public AttendanceCheck() {
         initComponents();
-        recognizer.read("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/classifierLBPH.yml");
+        recognizer.read(Properties.basePath + "Computer_vision_attendance/Images/classifierLBPH.yml");
         recognizer.setThreshold(80);
         startCamera();
     }
@@ -204,7 +206,7 @@ class DaemonThread implements Runnable {
 
                             if (g.drawImage(buff, 0, 0, getWidth(), getHeight() - 100, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                 if (runnable == false) {
-                                    System.out.println("Salve a Foto");
+                                    System.out.println("Saved a Picture");
                                     this.wait();
                                 }
                             }

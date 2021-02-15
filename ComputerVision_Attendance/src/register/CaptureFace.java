@@ -1,5 +1,6 @@
 package register;
 
+import config.Properties;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -38,7 +39,7 @@ import models.Student;
 
 public class CaptureFace extends javax.swing.JFrame {
 
-    String harcascade= "/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/haarcascade_frontalface_alt.xml";
+    String harcascade= Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml";
     String root ,first_name,last_name,student_section;
     int numSamples = 5, sample = 1,studentId,employeeId,student_class;
     DB_Connection cd = new DB_Connection();
@@ -187,7 +188,7 @@ public class CaptureFace extends javax.swing.JFrame {
                                 if (saveButton.getModel().isPressed()) {
 
                                     if (sample <= numSamples) {
-                                        String cropped = "/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/student." +studentId +"." + sample + ".jpg";
+                                        String cropped = Properties.basePath + "Computer_vision_attendance/Images/student." +studentId +"." + sample + ".jpg";
                                         imwrite(cropped, face);
                                         counterLabel.setText(String.valueOf(sample));
                                         sample++;
@@ -220,10 +221,10 @@ public class CaptureFace extends javax.swing.JFrame {
 
                     } catch (IOException ex) {
                         ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Erro ao iniciar camera (IOEx)\n" + ex);
+                        JOptionPane.showMessageDialog(null, "Error ao iniciar camera (IOEx)\n" + ex);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Erro ao iniciar camera (Interrupted)\n" + ex);
+                        JOptionPane.showMessageDialog(null, "Error ao iniciar camera (Interrupted)\n" + ex);
                     }
                 }
             }
@@ -232,7 +233,7 @@ public class CaptureFace extends javax.swing.JFrame {
     }
 
     public void generate() {
-        File directory=new File("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/");
+        File directory=new File(Properties.basePath + "Computer_vision_attendance/Images/");
         FilenameFilter filter=new FilenameFilter(){
 
             @Override
@@ -260,7 +261,7 @@ public class CaptureFace extends javax.swing.JFrame {
         FaceRecognizer lbph=LBPHFaceRecognizer.create();
         lbph.train(photos, labels);
 
-        lbph.save("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/classifierLBPH.yml");
+        lbph.save(Properties.basePath + "Computer_vision_attendance/Images/classifierLBPH.yml");
     }
 
     public void insertDatabase() throws SQLException{

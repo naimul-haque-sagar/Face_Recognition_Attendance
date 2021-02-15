@@ -11,6 +11,9 @@ import java.sql.Statement;
 public class DB_Connection {
     public Connection dbConnection;
     public ResultSet resultSet;
+    private String databaseName = "face_recognition";
+    private String uname = "kaiyom";
+    private String psword = "pass";
 
     public boolean ifTableExists(String tableName){
         boolean ans=false;
@@ -38,7 +41,7 @@ public class DB_Connection {
         try {
             System.setProperty("jdbc.Driver", "org.mysql.Driver");
             dbConnection = DriverManager.
-                    getConnection("jdbc:mysql://127.0.0.1/face_recognition", "root", "");
+                    getConnection("jdbc:mysql://127.0.0.1/"+ databaseName, uname, psword);
             System.out.println("Successfuly connected to database");
         } catch (SQLException e) {
             System.out.println("Unsuccessful database connection " + e);
