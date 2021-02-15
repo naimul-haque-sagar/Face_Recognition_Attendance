@@ -65,12 +65,16 @@ public class Menu extends javax.swing.JFrame {
         txt_title_menu = new javax.swing.JLabel();
         jtbAllTab = new javax.swing.JTabbedPane();
         jpAttendence = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jbAttendence = new javax.swing.JButton();
         jpRegister = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 1), new java.awt.Dimension(1, 1), new java.awt.Dimension(1, 1));
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnStudentRegister = new javax.swing.JButton();
@@ -86,34 +90,60 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 960));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_title_menu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_title_menu.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txt_title_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_title_menu.setText("Welcome User");
-        jPanel1.add(txt_title_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 140, 30));
+        jPanel1.add(txt_title_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 470, 30));
 
+        jtbAllTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbAllTab.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jtbAllTab.setPreferredSize(new java.awt.Dimension(480, 240));
 
+        jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
+        jPanel7.setMinimumSize(new java.awt.Dimension(580, 150));
+        jPanel7.setPreferredSize(new java.awt.Dimension(580, 100));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setText("Attendence");
+        jPanel7.add(jLabel2);
+
+        jpAttendence.add(jPanel7);
+
+        jPanel6.setMinimumSize(new java.awt.Dimension(280, 200));
+        jPanel6.setPreferredSize(new java.awt.Dimension(280, 200));
+
         jbAttendence.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbAttendence.setText("Attendence");
+        jbAttendence.setText("Start Attendence");
+        jbAttendence.setPreferredSize(new java.awt.Dimension(200, 170));
         jbAttendence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAttendenceActionPerformed(evt);
             }
         });
-        jpAttendence.add(jbAttendence);
+        jPanel6.add(jbAttendence);
+
+        jpAttendence.add(jPanel6);
 
         jtbAllTab.addTab("Attendence", jpAttendence);
 
+        jpRegister.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 50));
         jpRegister.setAlignmentX(0.0F);
         jpRegister.setAlignmentY(0.0F);
         jpRegister.add(jPanel2);
         jpRegister.add(filler1);
-        jpRegister.add(filler2);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setText("Registration");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
-        jpRegister.add(jLabel1);
+        jPanel8.setMinimumSize(new java.awt.Dimension(200, 100));
+        jPanel8.setPreferredSize(new java.awt.Dimension(800, 60));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel3.setText("Registration");
+        jLabel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 75, 1, 1));
+        jLabel3.setFocusable(false);
+        jLabel3.setPreferredSize(new java.awt.Dimension(264, 29));
+        jPanel8.add(jLabel3);
+
+        jpRegister.add(jPanel8);
+        jpRegister.add(filler2);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 1, 1, 1));
         jPanel3.setMinimumSize(new java.awt.Dimension(210, 210));
@@ -235,12 +265,16 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnStudentRegister;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JButton jbAttendence;
     private javax.swing.JButton jbData;
     private javax.swing.JPanel jpAttendence;
