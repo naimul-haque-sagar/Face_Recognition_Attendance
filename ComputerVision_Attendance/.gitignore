@@ -1,0 +1,15 @@
+
+/build
+
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+/nbproject
+
+
+
+
