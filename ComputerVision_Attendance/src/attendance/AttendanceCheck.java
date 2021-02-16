@@ -238,7 +238,7 @@ class DaemonThread implements Runnable {
         }
 
     }
-      public void stopCamera() {
+    public void stopCamera() {
         myThread.runnable = false;
         webSource.release();
         

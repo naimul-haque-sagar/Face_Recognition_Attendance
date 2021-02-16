@@ -27,11 +27,9 @@ public class RegisterStudent extends javax.swing.JFrame {
         txt_office = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        txt_last_name1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,7 +57,7 @@ public class RegisterStudent extends javax.swing.JFrame {
                 txt_last_nameActionPerformed(evt);
             }
         });
-        jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 150, 30));
+        jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 30));
         jPanel3.add(txt_office, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 150, 30));
 
         jLabel2.setText("Last Name");
@@ -67,9 +65,6 @@ public class RegisterStudent extends javax.swing.JFrame {
 
         jLabel3.setText("Section");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
-
-        jLabel4.setText("Roll");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel5.setText("Class");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
@@ -80,17 +75,10 @@ public class RegisterStudent extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 150, 30));
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 150, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Class 1", "Class 2", "Class 3", "Class 4", "Class 4", "Class 5", "Class 6", "Class 7", "Class 8", "Class 9", "Class 10" }));
         jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 150, 30));
-
-        txt_last_name1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_last_name1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txt_last_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 30));
 
         jLabel6.setText("First Name");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
@@ -117,10 +105,6 @@ public class RegisterStudent extends javax.swing.JFrame {
     private void txt_last_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_last_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_last_nameActionPerformed
-
-    private void txt_last_name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_last_name1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_last_name1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -162,7 +146,6 @@ public class RegisterStudent extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -171,7 +154,6 @@ public class RegisterStudent extends javax.swing.JFrame {
     private javax.swing.JTextField txt_first_name;
     private javax.swing.JLabel txt_id_label;
     private javax.swing.JTextField txt_last_name;
-    private javax.swing.JTextField txt_last_name1;
     private javax.swing.JTextField txt_office;
     // End of variables declaration//GEN-END:variables
 

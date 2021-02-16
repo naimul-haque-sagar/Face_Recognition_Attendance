@@ -76,14 +76,16 @@ public class Menu extends javax.swing.JFrame {
         btnStudentRegister = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnEmployeeRegister = new javax.swing.JButton();
-        jpAttendence = new javax.swing.JPanel();
+        jpAttendance = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jbAttendence = new javax.swing.JButton();
+        jbStudentAttendance = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jbEmployeeAttendance = new javax.swing.JButton();
         jpData = new javax.swing.JPanel();
         jbData = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
@@ -132,7 +134,7 @@ public class Menu extends javax.swing.JFrame {
         btnStudentRegister.setText("Student Register");
         btnStudentRegister.setAlignmentY(0.0F);
         btnStudentRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnStudentRegister.setPreferredSize(new java.awt.Dimension(200, 170));
+        btnStudentRegister.setPreferredSize(new java.awt.Dimension(235, 170));
         btnStudentRegister.setSelected(true);
         btnStudentRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +153,7 @@ public class Menu extends javax.swing.JFrame {
         btnEmployeeRegister.setText("Employee Register");
         btnEmployeeRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEmployeeRegister.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEmployeeRegister.setPreferredSize(new java.awt.Dimension(202, 170));
+        btnEmployeeRegister.setPreferredSize(new java.awt.Dimension(235, 170));
         btnEmployeeRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmployeeRegisterActionPerformed(evt);
@@ -170,27 +172,42 @@ public class Menu extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(580, 100));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setText("Attendence");
+        jLabel2.setText("Attendance");
         jPanel7.add(jLabel2);
 
-        jpAttendence.add(jPanel7);
+        jpAttendance.add(jPanel7);
 
         jPanel6.setMinimumSize(new java.awt.Dimension(280, 200));
         jPanel6.setPreferredSize(new java.awt.Dimension(280, 200));
 
-        jbAttendence.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbAttendence.setText("Start Attendence");
-        jbAttendence.setPreferredSize(new java.awt.Dimension(200, 170));
-        jbAttendence.addActionListener(new java.awt.event.ActionListener() {
+        jbStudentAttendance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbStudentAttendance.setText("Student Attendance");
+        jbStudentAttendance.setPreferredSize(new java.awt.Dimension(235, 170));
+        jbStudentAttendance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAttendenceActionPerformed(evt);
+                jbStudentAttendanceActionPerformed(evt);
             }
         });
-        jPanel6.add(jbAttendence);
+        jPanel6.add(jbStudentAttendance);
 
-        jpAttendence.add(jPanel6);
+        jpAttendance.add(jPanel6);
 
-        jtbAllTab.addTab("Attendence", jpAttendence);
+        jPanel9.setMinimumSize(new java.awt.Dimension(280, 200));
+        jPanel9.setPreferredSize(new java.awt.Dimension(280, 200));
+
+        jbEmployeeAttendance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbEmployeeAttendance.setText("Employee Attendance");
+        jbEmployeeAttendance.setPreferredSize(new java.awt.Dimension(235, 170));
+        jbEmployeeAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEmployeeAttendanceActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jbEmployeeAttendance);
+
+        jpAttendance.add(jPanel9);
+
+        jtbAllTab.addTab("Attendance", jpAttendance);
 
         jbData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jbData.setText("Data");
@@ -207,8 +224,13 @@ public class Menu extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 790, 470));
 
-        jButton1.setText("Logout");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 100, 30));
+        jbLogout.setText("Logout");
+        jbLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 100, 30));
 
         setSize(new java.awt.Dimension(817, 558));
         setLocationRelativeTo(null);
@@ -222,13 +244,21 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbDataActionPerformed
 
-    private void jbAttendenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAttendenceActionPerformed
+    private void jbStudentAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStudentAttendanceActionPerformed
         new AttendanceCheck().setVisible(true);
-    }//GEN-LAST:event_jbAttendenceActionPerformed
+    }//GEN-LAST:event_jbStudentAttendanceActionPerformed
 
     private void btnEmployeeRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeRegisterActionPerformed
         new RegisterEmployee().setVisible(true);
     }//GEN-LAST:event_btnEmployeeRegisterActionPerformed
+
+    private void jbEmployeeAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEmployeeAttendanceActionPerformed
+        new AttendanceCheck().setVisible(true);
+    }//GEN-LAST:event_jbEmployeeAttendanceActionPerformed
+
+    private void jbLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogoutActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jbLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +300,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnStudentRegister;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -281,9 +310,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JButton jbAttendence;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JButton jbData;
-    private javax.swing.JPanel jpAttendence;
+    private javax.swing.JButton jbEmployeeAttendance;
+    private javax.swing.JButton jbLogout;
+    private javax.swing.JButton jbStudentAttendance;
+    private javax.swing.JPanel jpAttendance;
     private javax.swing.JPanel jpData;
     private javax.swing.JPanel jpRegister;
     private javax.swing.JTabbedPane jtbAllTab;
