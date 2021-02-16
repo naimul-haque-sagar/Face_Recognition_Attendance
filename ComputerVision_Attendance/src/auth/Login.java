@@ -8,6 +8,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")

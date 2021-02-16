@@ -12,6 +12,7 @@ public class RegisterEmployee extends javax.swing.JFrame {
     public RegisterEmployee() {
         initComponents();
         setIdForRegister();
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,16 +25,12 @@ public class RegisterEmployee extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         txt_first_name = new javax.swing.JTextField();
         txt_last_name = new javax.swing.JTextField();
-        txt_office = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        txt_dob = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Register Person");
+        setTitle("Register Employee");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,27 +41,20 @@ public class RegisterEmployee extends javax.swing.JFrame {
         txt_id_label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txt_id_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_id_label.setText("1");
-        jPanel2.add(txt_id_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, -1));
+        jPanel2.add(txt_id_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 290, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 340, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 40));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(txt_first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 120, -1));
-        jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 130, -1));
-        jPanel3.add(txt_office, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 130, -1));
+        jPanel3.add(txt_first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 140, 30));
+        jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 140, 30));
 
         jLabel2.setText("Last Name");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
-
-        jLabel3.setText("Office");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
         jLabel4.setText("First Name");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-
-        jLabel5.setText("Dob");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jButton1.setText("Next");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,20 +62,13 @@ public class RegisterEmployee extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, 30));
 
-        try {
-            txt_dob.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel3.add(txt_dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 120, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 350, 150));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 340, 200));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 370, 230));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 380, 280));
-
-        setSize(new java.awt.Dimension(416, 339));
+        setSize(new java.awt.Dimension(394, 279));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,17 +130,13 @@ public class RegisterEmployee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JFormattedTextField txt_dob;
     private javax.swing.JTextField txt_first_name;
     private javax.swing.JLabel txt_id_label;
     private javax.swing.JTextField txt_last_name;
-    private javax.swing.JTextField txt_office;
     // End of variables declaration//GEN-END:variables
 
     private void setIdForRegister() {

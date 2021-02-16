@@ -13,6 +13,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import register.RegisterEmployee;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -64,11 +65,6 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txt_title_menu = new javax.swing.JLabel();
         jtbAllTab = new javax.swing.JTabbedPane();
-        jpAttendence = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jbAttendence = new javax.swing.JButton();
         jpRegister = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 1), new java.awt.Dimension(1, 1), new java.awt.Dimension(1, 1));
@@ -80,8 +76,14 @@ public class Menu extends javax.swing.JFrame {
         btnStudentRegister = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnEmployeeRegister = new javax.swing.JButton();
+        jpAttendence = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jbAttendence = new javax.swing.JButton();
         jpData = new javax.swing.JPanel();
         jbData = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
@@ -98,33 +100,6 @@ public class Menu extends javax.swing.JFrame {
         jtbAllTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtbAllTab.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jtbAllTab.setPreferredSize(new java.awt.Dimension(480, 240));
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
-        jPanel7.setMinimumSize(new java.awt.Dimension(580, 150));
-        jPanel7.setPreferredSize(new java.awt.Dimension(580, 100));
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setText("Attendence");
-        jPanel7.add(jLabel2);
-
-        jpAttendence.add(jPanel7);
-
-        jPanel6.setMinimumSize(new java.awt.Dimension(280, 200));
-        jPanel6.setPreferredSize(new java.awt.Dimension(280, 200));
-
-        jbAttendence.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbAttendence.setText("Start Attendence");
-        jbAttendence.setPreferredSize(new java.awt.Dimension(200, 170));
-        jbAttendence.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAttendenceActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jbAttendence);
-
-        jpAttendence.add(jPanel6);
-
-        jtbAllTab.addTab("Attendence", jpAttendence);
 
         jpRegister.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 50));
         jpRegister.setAlignmentX(0.0F);
@@ -190,6 +165,33 @@ public class Menu extends javax.swing.JFrame {
 
         jtbAllTab.addTab("Register", jpRegister);
 
+        jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
+        jPanel7.setMinimumSize(new java.awt.Dimension(580, 150));
+        jPanel7.setPreferredSize(new java.awt.Dimension(580, 100));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setText("Attendence");
+        jPanel7.add(jLabel2);
+
+        jpAttendence.add(jPanel7);
+
+        jPanel6.setMinimumSize(new java.awt.Dimension(280, 200));
+        jPanel6.setPreferredSize(new java.awt.Dimension(280, 200));
+
+        jbAttendence.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbAttendence.setText("Start Attendence");
+        jbAttendence.setPreferredSize(new java.awt.Dimension(200, 170));
+        jbAttendence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAttendenceActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jbAttendence);
+
+        jpAttendence.add(jPanel6);
+
+        jtbAllTab.addTab("Attendence", jpAttendence);
+
         jbData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jbData.setText("Data");
         jbData.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +207,10 @@ public class Menu extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 790, 470));
 
-        setSize(new java.awt.Dimension(817, 526));
+        jButton1.setText("Logout");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 100, 30));
+
+        setSize(new java.awt.Dimension(817, 558));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -222,7 +227,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAttendenceActionPerformed
 
     private void btnEmployeeRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeRegisterActionPerformed
-        new RegisterStudent().setVisible(true);
+        new RegisterEmployee().setVisible(true);
     }//GEN-LAST:event_btnEmployeeRegisterActionPerformed
 
     /**
@@ -265,6 +270,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnStudentRegister;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
