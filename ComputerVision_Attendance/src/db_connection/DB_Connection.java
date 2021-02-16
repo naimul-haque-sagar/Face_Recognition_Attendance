@@ -48,7 +48,7 @@ public class DB_Connection {
             System.setProperty("jdbc.Driver", "org.mysql.Driver");
             dbConnection = DriverManager.
                     getConnection("jdbc:mysql://127.0.0.1/"+ databaseName, uname, psword);
-            System.out.println("Successfuly connected to database");
+//            System.out.println("Successfuly connected to database");
         } catch (SQLException e) {
             System.out.println("Unsuccessful database connection " + e);
         }

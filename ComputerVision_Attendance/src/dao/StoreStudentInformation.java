@@ -26,7 +26,7 @@ public class StoreStudentInformation {
         try {
             PreparedStatement preparedStatement = dbConnectionClass.dbConnection.
                     prepareStatement("INSERT INTO student (id,first_name,last_name,student_class,class_section) values (?,?,?,?,?)");
-            preparedStatement.setInt(1, student.getId());
+            preparedStatement.setInt(1, 22);
             preparedStatement.setString(2, student.getFirst_name());
             preparedStatement.setString(3, student.getLast_name());
             preparedStatement.setInt(4, student.getStudent_class());
