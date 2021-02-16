@@ -60,14 +60,6 @@ public class CaptureFace extends javax.swing.JFrame {
         this.student_section= student_section;
         startCamera();
     }
-    
-    public CaptureFace(int id,String first_name,String last_name){
-        initComponents();
-        this.employeeId=id;
-        this.first_name=first_name;
-        this.last_name=last_name;
-        startCamera();
-    }
 
     private CaptureFace() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

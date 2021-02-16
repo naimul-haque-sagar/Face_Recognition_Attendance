@@ -11,6 +11,7 @@ public class RegisterStudent extends javax.swing.JFrame {
     public RegisterStudent() {
         initComponents();
         setIdForRegister();
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -23,16 +24,16 @@ public class RegisterStudent extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         txt_first_name = new javax.swing.JTextField();
         txt_last_name = new javax.swing.JTextField();
-        txt_office = new javax.swing.JTextField();
+        txt_section = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        txt_dob = new javax.swing.JFormattedTextField();
+        jcbClass = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Register Person");
+        setTitle("Register Student");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -43,26 +44,29 @@ public class RegisterStudent extends javax.swing.JFrame {
         txt_id_label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txt_id_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_id_label.setText("1");
-        jPanel2.add(txt_id_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, -1));
+        jPanel2.add(txt_id_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 250, 50));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 340, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 430, 50));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(txt_first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 120, -1));
-        jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 130, -1));
-        jPanel3.add(txt_office, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 130, -1));
+        jPanel3.add(txt_first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 150, 30));
+
+        txt_last_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_last_nameActionPerformed(evt);
+            }
+        });
+        jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 30));
+        jPanel3.add(txt_section, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 150, 30));
 
         jLabel2.setText("Last Name");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, -1));
 
-        jLabel3.setText("Office");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+        jLabel3.setText("Section");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
-        jLabel4.setText("First Name");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-
-        jLabel5.setText("Dob");
+        jLabel5.setText("Class");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         jButton1.setText("Next");
@@ -71,33 +75,40 @@ public class RegisterStudent extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 150, 30));
 
-        try {
-            txt_dob.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel3.add(txt_dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 120, -1));
+        jcbClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        jPanel3.add(jcbClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 150, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 340, 200));
+        jLabel6.setText("First Name");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 380, 280));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 430, 270));
 
-        setSize(new java.awt.Dimension(416, 339));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 450, 360));
+
+        setSize(new java.awt.Dimension(475, 405));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String first_name = txt_first_name.getText();
         String last_name = txt_last_name.getText();
-
-        int student_class = 4;
-        String class_section = "a";
+        
+        int student_class = getClassValue();
+        String class_section = txt_section.getText();
 
         int id = Integer.parseInt(txt_id_label.getText());
         new CaptureFace(id, first_name, last_name, student_class, class_section).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private int getClassValue() {
+        return Integer.parseInt(jcbClass.getSelectedItem().toString());
+    }
+    
+    private void txt_last_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_last_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_last_nameActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -138,16 +149,16 @@ public class RegisterStudent extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JFormattedTextField txt_dob;
+    private javax.swing.JComboBox<String> jcbClass;
     private javax.swing.JTextField txt_first_name;
     private javax.swing.JLabel txt_id_label;
     private javax.swing.JTextField txt_last_name;
-    private javax.swing.JTextField txt_office;
+    private javax.swing.JTextField txt_section;
     // End of variables declaration//GEN-END:variables
 
     private void setIdForRegister() {

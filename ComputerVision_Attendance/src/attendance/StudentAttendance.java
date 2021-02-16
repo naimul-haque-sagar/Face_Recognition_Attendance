@@ -33,20 +33,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class AttendanceCheck extends javax.swing.JFrame {
-    private boolean isDispose = true;
-    private AttendanceCheck.DaemonThread myThread = null;
-    VideoCapture videoCapture = null;
+public class StudentAttendance extends javax.swing.JFrame {
+    private StudentAttendance.DaemonThread myThread = null;
+    VideoCapture webSource = null;
     Mat cameraImage = new Mat();
-    CascadeClassifier classifier = new CascadeClassifier( Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml");
-    BytePointer bytePointer = new BytePointer();
+    CascadeClassifier cascade = new CascadeClassifier( Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml");
+    BytePointer mem = new BytePointer();
     FaceRecognizer recognizer=LBPHFaceRecognizer.create();
     RectVector detectedFaces = new RectVector();
-    String root,firstNamePerson,lastNamePerson,officePerson,dobPerson;
+    String root ,firstNamePerson,lastNamePerson,officePerson,dobPerson;
     int idPerson;
     DB_Connection cd = new DB_Connection();
 
-    public AttendanceCheck() {
+    public StudentAttendance() {
         initComponents();
         this.setResizable(false);
         recognizer.read(Properties.basePath + "Computer_vision_attendance/Images/classifierLBPH.yml");
@@ -115,30 +114,14 @@ public class AttendanceCheck extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AttendanceCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -159,7 +142,7 @@ public class AttendanceCheck extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AttendanceCheck().setVisible(true);
+                new StudentAttendance().setVisible(true);
             }
         });
     }
@@ -172,51 +155,56 @@ public class AttendanceCheck extends javax.swing.JFrame {
     private javax.swing.JLabel label_photo;
     // End of variables declaration//GEN-END:variables
 class DaemonThread implements Runnable {
+
         protected volatile boolean runnable = false;
+
         @Override
         public void run() {
             synchronized (this) {
                 while (runnable) {
                     try {
-                        if (videoCapture.grab()) {
-                            videoCapture.retrieve(cameraImage);
+                        if (webSource.grab()) {
+                            webSource.retrieve(cameraImage);
                             Graphics g = label_photo.getGraphics();
 
                             Mat imageGray = new Mat();
                             cvtColor(cameraImage, imageGray, COLOR_BGRA2GRAY);
 
                             RectVector detectedFace = new RectVector();
-                            classifier.detectMultiScale(imageGray, detectedFace, 1.1, 2, 0, new Size(150, 150), new Size(500, 500));
+                            cascade.detectMultiScale(imageGray, detectedFace, 1.1, 2, 0, new Size(150, 150), new Size(500, 500));
 
                             for (int i = 0; i < detectedFace.size(); i++) {
-                                Rect getDetectedFace = detectedFace.get(i);
-                                rectangle(cameraImage, getDetectedFace, new Scalar(0, 255, 0, 0));
-                                Mat faceCaptured = new Mat(imageGray, getDetectedFace);
-                                opencv_imgproc.resize(faceCaptured, faceCaptured, new Size(160, 160));
+                                Rect dadosFace = detectedFace.get(i);
+                                rectangle(cameraImage, dadosFace, new Scalar(0, 255, 0, 0));
+                                Mat faceCapturada = new Mat(imageGray, dadosFace);
+                                opencv_imgproc.resize(faceCapturada, faceCapturada, new Size(160, 160));
 
-                                IntPointer intpointer = new IntPointer(1);
+                                IntPointer rotulo = new IntPointer(1);
                                 DoublePointer confidence = new DoublePointer(1);
-                                recognizer.predict(faceCaptured, intpointer, confidence);
-                                
-                                int prediction = intpointer.get(0);
-                                
+                                recognizer.predict(faceCapturada, rotulo, confidence);
+                                int prediction = rotulo.get(0);
                                 String name = null;
                                 if (prediction == -1) {
+//                                    label_name.setText("Not Recognized");
+//                                    labelOffice.setText("Not Found");
                                     idPerson = 0;
                                 } else {
-//                                    System.out.println(confidence.get(0));
+                                    System.out.println(confidence.get(0));
                                     idPerson = prediction;
                                     rec();
                                 }
+                                //int x = Math.max(dadosFace.tl().x() - 10, 0);
+                                //int y = Math.max(dadosFace.tl().y() - 10, 0);
+                                //putText(imagemCamera, nome, new Point(x, y), FONT_HERSHEY_PLAIN, 1.7, new Scalar(0, 255, 0, 2));
                             }
 
-                            imencode(".bmp", cameraImage, bytePointer);
-                            Image im = ImageIO.read(new ByteArrayInputStream(bytePointer.getStringBytes()));
+                            imencode(".bmp", cameraImage, mem);
+                            Image im = ImageIO.read(new ByteArrayInputStream(mem.getStringBytes()));
                             BufferedImage buff = (BufferedImage) im;
 
                             if (g.drawImage(buff, 0, 0, getWidth(), getHeight() - 100, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                 if (runnable == false) {
-//                                    System.out.println("Saved a Picture");
+                                    System.out.println("Saved a Picture");
                                     this.wait();
                                 }
                             }
@@ -236,15 +224,15 @@ class DaemonThread implements Runnable {
                     try {
                         String sql="SELECT * FROM student WHERE id ="+String.valueOf(idPerson);
                         cd.executesql(sql);
-                        if(cd.resultSet.next()){
+                        while(cd.resultSet.next()){
 //                            label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
 //                            labelOffice.setText(cd.resultSet.getString("office"));
-                            
-                            System.out.println("Recognition id : "+cd.resultSet.getString("id"));
+                            System.out.println(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
+                            System.out.println("person : "+cd.resultSet.getString("id"));
                             Array ident=cd.resultSet.getArray(2);
                             String[] person=(String[]) ident.getArray();
                             for (int i = 0; i < person.length; i++) {
-//                                System.out.println(person[i]);
+                                System.out.println(person[i]);
                             }
                         }
                     } catch (Exception e) {
@@ -258,17 +246,17 @@ class DaemonThread implements Runnable {
         }
 
     }
-      public void stopCamera() {
+    public void stopCamera() {
         myThread.runnable = false;
-        videoCapture.release();
+        webSource.release();
         
         if(isDispose) 
             dispose();
     }
 
     public void startCamera() {
-        videoCapture=new VideoCapture(0);
-        myThread=new AttendanceCheck.DaemonThread();
+        webSource=new VideoCapture(0);
+        myThread=new StudentAttendance.DaemonThread();
         Thread t=new Thread(myThread);
         t.setDaemon(true);
         myThread.runnable=true;
@@ -296,4 +284,5 @@ class DaemonThread implements Runnable {
         super.dispose();
     }
     
+    private boolean isDispose = true;
 }

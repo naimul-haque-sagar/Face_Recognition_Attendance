@@ -54,6 +54,7 @@ public class CaptureEmployeeFace extends javax.swing.JFrame {
     RectVector detectedFaces = new RectVector();
     
     public CaptureEmployeeFace(int id,String first_name,String last_name){
+        System.out.println("capture employee facde"+id+" "+first_name);
         initComponents();
         this.employeeId=id;
         this.first_name=first_name;
@@ -258,6 +259,7 @@ public class CaptureEmployeeFace extends javax.swing.JFrame {
     }
 
     public void insertDatabase() throws SQLException{
+        System.out.println("Insert database called");
         StoreEmployeeInformation storeEmployeeInformation = new StoreEmployeeInformation();
         Employee employee= new Employee();
         employee.setId(employeeId);

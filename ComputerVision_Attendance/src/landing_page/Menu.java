@@ -1,18 +1,8 @@
 package landing_page;
 
+import attendance.EmployeeAttendance;
 import register.RegisterStudent;
-import attendance.AttendanceCheck;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.FlowLayout;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
+import attendance.StudentAttendance;
 import register.RegisterEmployee;
 
 public class Menu extends javax.swing.JFrame {
@@ -22,6 +12,10 @@ public class Menu extends javax.swing.JFrame {
         txt_title_menu.setText("Welcome "+user);
         
         this.setResizable(false);
+        
+        // toggle btween radio buttons
+        buttonGroup1.add(jrBtnStudent);
+        buttonGroup1.add(jrBtnEmployee);
         
         //jPanel1.setPreferredSize(new Dimension(100,100));
         //setFullscreen(true);
@@ -62,14 +56,10 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         txt_title_menu = new javax.swing.JLabel();
         jtbAllTab = new javax.swing.JTabbedPane();
-        jpAttendence = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jbAttendence = new javax.swing.JButton();
         jpRegister = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 1), new java.awt.Dimension(1, 1), new java.awt.Dimension(1, 1));
@@ -81,8 +71,22 @@ public class Menu extends javax.swing.JFrame {
         btnStudentRegister = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnEmployeeRegister = new javax.swing.JButton();
+        jpAttendance = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jbStudentAttendance = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jbEmployeeAttendance = new javax.swing.JButton();
         jpData = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        dataTable = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jrBtnStudent = new javax.swing.JRadioButton();
+        jrBtnEmployee = new javax.swing.JRadioButton();
         jbData = new javax.swing.JButton();
+        jbLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
@@ -99,33 +103,6 @@ public class Menu extends javax.swing.JFrame {
         jtbAllTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtbAllTab.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jtbAllTab.setPreferredSize(new java.awt.Dimension(480, 240));
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
-        jPanel7.setMinimumSize(new java.awt.Dimension(580, 150));
-        jPanel7.setPreferredSize(new java.awt.Dimension(580, 100));
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setText("Attendence");
-        jPanel7.add(jLabel2);
-
-        jpAttendence.add(jPanel7);
-
-        jPanel6.setMinimumSize(new java.awt.Dimension(280, 200));
-        jPanel6.setPreferredSize(new java.awt.Dimension(280, 200));
-
-        jbAttendence.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbAttendence.setText("Start Attendence");
-        jbAttendence.setPreferredSize(new java.awt.Dimension(200, 170));
-        jbAttendence.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAttendenceActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jbAttendence);
-
-        jpAttendence.add(jPanel6);
-
-        jtbAllTab.addTab("Attendence", jpAttendence);
 
         jpRegister.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 50));
         jpRegister.setAlignmentX(0.0F);
@@ -158,7 +135,7 @@ public class Menu extends javax.swing.JFrame {
         btnStudentRegister.setText("Student Register");
         btnStudentRegister.setAlignmentY(0.0F);
         btnStudentRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnStudentRegister.setPreferredSize(new java.awt.Dimension(200, 170));
+        btnStudentRegister.setPreferredSize(new java.awt.Dimension(235, 170));
         btnStudentRegister.setSelected(true);
         btnStudentRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +154,7 @@ public class Menu extends javax.swing.JFrame {
         btnEmployeeRegister.setText("Employee Register");
         btnEmployeeRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEmployeeRegister.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEmployeeRegister.setPreferredSize(new java.awt.Dimension(202, 170));
+        btnEmployeeRegister.setPreferredSize(new java.awt.Dimension(235, 170));
         btnEmployeeRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmployeeRegisterActionPerformed(evt);
@@ -191,6 +168,88 @@ public class Menu extends javax.swing.JFrame {
 
         jtbAllTab.addTab("Register", jpRegister);
 
+        jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
+        jPanel7.setMinimumSize(new java.awt.Dimension(580, 150));
+        jPanel7.setPreferredSize(new java.awt.Dimension(580, 100));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setText("Attendance");
+        jPanel7.add(jLabel2);
+
+        jpAttendance.add(jPanel7);
+
+        jPanel6.setMinimumSize(new java.awt.Dimension(280, 200));
+        jPanel6.setPreferredSize(new java.awt.Dimension(280, 200));
+
+        jbStudentAttendance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbStudentAttendance.setText("Student Attendance");
+        jbStudentAttendance.setPreferredSize(new java.awt.Dimension(235, 170));
+        jbStudentAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbStudentAttendanceActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jbStudentAttendance);
+
+        jpAttendance.add(jPanel6);
+
+        jPanel9.setMinimumSize(new java.awt.Dimension(280, 200));
+        jPanel9.setPreferredSize(new java.awt.Dimension(280, 200));
+
+        jbEmployeeAttendance.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jbEmployeeAttendance.setText("Employee Attendance");
+        jbEmployeeAttendance.setPreferredSize(new java.awt.Dimension(235, 170));
+        jbEmployeeAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEmployeeAttendanceActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jbEmployeeAttendance);
+
+        jpAttendance.add(jPanel9);
+
+        jtbAllTab.addTab("Attendance", jpAttendance);
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(620, 380));
+
+        dataTable.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        dataTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        jScrollPane1.setViewportView(dataTable);
+
+        jpData.add(jScrollPane1);
+
+        jPanel10.setMinimumSize(new java.awt.Dimension(200, 200));
+        jPanel10.setPreferredSize(new java.awt.Dimension(150, 380));
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(100, 1, 1, 1));
+        jPanel11.setMinimumSize(new java.awt.Dimension(200, 100));
+        jPanel11.setPreferredSize(new java.awt.Dimension(120, 220));
+
+        jrBtnStudent.setSelected(true);
+        jrBtnStudent.setText("Student");
+        jPanel11.add(jrBtnStudent);
+
+        jrBtnEmployee.setText("Employee");
+        jPanel11.add(jrBtnEmployee);
+
+        jPanel10.add(jPanel11);
+
         jbData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jbData.setText("Data");
         jbData.addActionListener(new java.awt.event.ActionListener() {
@@ -198,15 +257,25 @@ public class Menu extends javax.swing.JFrame {
                 jbDataActionPerformed(evt);
             }
         });
-        jpData.add(jbData);
+        jPanel10.add(jbData);
 
-        jtbAllTab.addTab("Data", jpData);
+        jpData.add(jPanel10);
+
+        jtbAllTab.addTab("Report", jpData);
 
         jPanel1.add(jtbAllTab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 430));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 790, 470));
 
-        setSize(new java.awt.Dimension(817, 526));
+        jbLogout.setText("Logout");
+        jbLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 100, 30));
+
+        setSize(new java.awt.Dimension(817, 558));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,15 +285,108 @@ public class Menu extends javax.swing.JFrame {
 
     private void jbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDataActionPerformed
         
+        
+        if(jrBtnStudent.isSelected()) {
+            String[] columns = {"ID", "Fist Name", "Last Name", "Class", "Section"};
+            Object[][] data = {
+                {1, "Mr", "ABC", 8, "A"},
+                {2, "Mrs", "MNO", 6, "B"},
+                {3, "Mrs", "xyz", 5, "A"}
+            };
+            
+            // database query
+            
+            createTable(columns, data);
+        }
+        
+        else if (jrBtnEmployee.isSelected()){
+            String[] columns = {"ID", "Fist Name", "Last Name"};
+            Object[][] data = {
+                {1, "Mr", "ABC"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"},
+                {2, "Mrs", "MNO"},
+                {3, "Mrs", "xyz"}
+            };
+            
+            // database query
+            
+            createTable(columns, data);
+           
+        }
+        else { // do nothing  
+        }
     }//GEN-LAST:event_jbDataActionPerformed
+    private void createTable(String[] columns, Object[][] data) {
+        ////dataTable.setFont(new java.awt.Font("Dialog", 0, 12));
+        dataTable.setModel(new javax.swing.table.DefaultTableModel(data, columns){
+            Class[] types = new Class [] {
+                java.lang.Object.class,
+                java.lang.Object.class, 
+                java.lang.Object.class, 
+                java.lang.Object.class, 
+                java.lang.Object.class 
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-    private void jbAttendenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAttendenceActionPerformed
-        new AttendanceCheck().setVisible(true);
-    }//GEN-LAST:event_jbAttendenceActionPerformed
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
+    
+    
+    private void jbStudentAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStudentAttendanceActionPerformed
+        new StudentAttendance().setVisible(true);
+    }//GEN-LAST:event_jbStudentAttendanceActionPerformed
 
     private void btnEmployeeRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeRegisterActionPerformed
         new RegisterEmployee().setVisible(true);
     }//GEN-LAST:event_btnEmployeeRegisterActionPerformed
+
+    private void jbEmployeeAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEmployeeAttendanceActionPerformed
+        new EmployeeAttendance().setVisible(true);
+    }//GEN-LAST:event_jbEmployeeAttendanceActionPerformed
+
+    private void jbLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogoutActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jbLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,11 +426,15 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEmployeeRegister;
     private javax.swing.JButton btnStudentRegister;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTable dataTable;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -276,11 +442,17 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JButton jbAttendence;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbData;
-    private javax.swing.JPanel jpAttendence;
+    private javax.swing.JButton jbEmployeeAttendance;
+    private javax.swing.JButton jbLogout;
+    private javax.swing.JButton jbStudentAttendance;
+    private javax.swing.JPanel jpAttendance;
     private javax.swing.JPanel jpData;
     private javax.swing.JPanel jpRegister;
+    private javax.swing.JRadioButton jrBtnEmployee;
+    private javax.swing.JRadioButton jrBtnStudent;
     private javax.swing.JTabbedPane jtbAllTab;
     private javax.swing.JLabel txt_title_menu;
     // End of variables declaration//GEN-END:variables

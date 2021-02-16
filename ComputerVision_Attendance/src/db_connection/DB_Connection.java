@@ -30,7 +30,7 @@ public class DB_Connection {
     public void createTable(String tableName) {
         PreparedStatement preparedStatement = null;
         try {
-            if(tableName == "student"){
+            if("student".equals(tableName)){
                 preparedStatement = dbConnection.
                     prepareStatement("CREATE TABLE student (id int, first_name varchar(255), last_name varchar(255), student_class int, class_section varchar(22))");
             }else{
@@ -48,7 +48,7 @@ public class DB_Connection {
             System.setProperty("jdbc.Driver", "org.mysql.Driver");
             dbConnection = DriverManager.
                     getConnection("jdbc:mysql://127.0.0.1/"+ databaseName, uname, psword);
-//            System.out.println("Successfuly connected to database");
+            System.out.println("Successfuly connected to database");
         } catch (SQLException e) {
             System.out.println("Unsuccessful database connection " + e);
         }
