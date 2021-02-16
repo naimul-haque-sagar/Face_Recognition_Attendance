@@ -28,11 +28,16 @@ import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import db_connection.DB_Connection;
 
+import config.Properties;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 public class AttendanceCheck extends javax.swing.JFrame {
     private AttendanceCheck.DaemonThread myThread = null;
     VideoCapture webSource = null;
     Mat cameraImage = new Mat();
-    CascadeClassifier cascade = new CascadeClassifier("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/haarcascade_frontalface_alt.xml");
+    CascadeClassifier cascade = new CascadeClassifier( Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml");
     BytePointer mem = new BytePointer();
     FaceRecognizer recognizer=LBPHFaceRecognizer.create();
     RectVector detectedFaces = new RectVector();
@@ -42,7 +47,8 @@ public class AttendanceCheck extends javax.swing.JFrame {
 
     public AttendanceCheck() {
         initComponents();
-        recognizer.read("/home/sagar/Desktop/Nu/Face_Recognition_Attendance/Computer_vision_attendance/Images/classifierLBPH.yml");
+        this.setResizable(false);
+        recognizer.read(Properties.basePath + "Computer_vision_attendance/Images/classifierLBPH.yml");
         recognizer.setThreshold(80);
         startCamera();
     }
@@ -55,8 +61,6 @@ public class AttendanceCheck extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         label_photo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        labelOffice = new javax.swing.JLabel();
-        label_name = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -68,24 +72,12 @@ public class AttendanceCheck extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Capture 25 snapshot");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 420, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 430, 30));
 
-        label_photo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(200, 200, 200)));
-        jPanel1.add(label_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 420, 280));
+        label_photo.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jPanel1.add(label_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 430, 280));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        labelOffice.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        labelOffice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOffice.setText("Office");
-        jPanel2.add(labelOffice, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 380, 30));
-
-        label_name.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        label_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_name.setText("Name");
-        jPanel2.add(label_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 380, 30));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 420, 100));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Stop camera");
@@ -94,11 +86,13 @@ public class AttendanceCheck extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 470, 520));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 430, 100));
 
-        setSize(new java.awt.Dimension(514, 577));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 470, 490));
+
+        setSize(new java.awt.Dimension(499, 540));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -150,8 +144,6 @@ public class AttendanceCheck extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel labelOffice;
-    private javax.swing.JLabel label_name;
     private javax.swing.JLabel label_photo;
     // End of variables declaration//GEN-END:variables
 class DaemonThread implements Runnable {
@@ -185,8 +177,8 @@ class DaemonThread implements Runnable {
                                 int prediction = rotulo.get(0);
                                 String name = null;
                                 if (prediction == -1) {
-                                    label_name.setText("Not Recognized");
-                                    labelOffice.setText("Not Found");
+//                                    label_name.setText("Not Recognized");
+//                                    labelOffice.setText("Not Found");
                                     idPerson = 0;
                                 } else {
                                     System.out.println(confidence.get(0));
@@ -204,7 +196,7 @@ class DaemonThread implements Runnable {
 
                             if (g.drawImage(buff, 0, 0, getWidth(), getHeight() - 100, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                 if (runnable == false) {
-                                    System.out.println("Salve a Foto");
+                                    System.out.println("Saved a Picture");
                                     this.wait();
                                 }
                             }
@@ -222,11 +214,11 @@ class DaemonThread implements Runnable {
                 protected Object doInBackground() throws Exception {
                     cd.connectDatabase();
                     try {
-                        String sql="SELECT * FROM person WHERE id ="+String.valueOf(idPerson);
+                        String sql="SELECT * FROM student WHERE id ="+String.valueOf(idPerson);
                         cd.executesql(sql);
                         while(cd.resultSet.next()){
-                            label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
-                            labelOffice.setText(cd.resultSet.getString("office"));
+//                            label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
+//                            labelOffice.setText(cd.resultSet.getString("office"));
                             
                             System.out.println("person : "+cd.resultSet.getString("id"));
                             Array ident=cd.resultSet.getArray(2);
@@ -249,7 +241,9 @@ class DaemonThread implements Runnable {
       public void stopCamera() {
         myThread.runnable = false;
         webSource.release();
-        dispose();
+        
+        if(isDispose) 
+            dispose();
     }
 
     public void startCamera() {
@@ -260,4 +254,27 @@ class DaemonThread implements Runnable {
         myThread.runnable=true;
         t.start();
     }
+    
+    //TODO: on close action - call stopCamera
+    @Override
+    public synchronized void addWindowListener(WindowListener listener) {
+        
+        listener = new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                
+                stopCamera();
+            }
+        };
+    };
+
+    @Override
+    public void dispose() {
+        isDispose = false; // otherwise cause an infinite loop 
+        
+        stopCamera();
+        super.dispose();
+    }
+    
+    private boolean isDispose = true;
 }

@@ -94,7 +94,7 @@ public class RegisterEmployee extends javax.swing.JFrame {
         String last_name = txt_last_name.getText();
 
         int id = Integer.parseInt(txt_id_label.getText());
-        new CaptureFace(id, first_name, last_name).setVisible(true);
+        new CaptureEmployeeFace(id, first_name, last_name).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
@@ -162,11 +162,11 @@ public class RegisterEmployee extends javax.swing.JFrame {
 
     private void setIdForRegister() {
         dbConnection.connectDatabase();
-        if (dbConnection.ifTableExists("student")) {
-            dbConnection.executesql("SELECT id FROM student ORDER BY id DESC ");
+        if (dbConnection.ifTableExists("employee")) {
+            dbConnection.executesql("SELECT id FROM employee ORDER BY id DESC ");
         } else {
-            dbConnection.createTable("student");
-            dbConnection.executesql("SELECT id FROM student ORDER BY id DESC ");
+            dbConnection.createTable("employee");
+            dbConnection.executesql("SELECT id FROM employee ORDER BY id DESC ");
         }
         try {
             if (dbConnection.resultSet != null) {

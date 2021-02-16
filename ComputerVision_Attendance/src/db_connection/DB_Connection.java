@@ -11,12 +11,15 @@ import java.sql.Statement;
 public class DB_Connection {
     public Connection dbConnection;
     public ResultSet resultSet;
+    private String databaseName = "face_recognition";
+    private String uname = "root";
+    private String psword = "";
 
     public boolean ifTableExists(String tableName){
         boolean ans=false;
         try{
             DatabaseMetaData databaseMetaData = dbConnection.getMetaData();
-            ResultSet resultSet = databaseMetaData.getTables(null, null, "student", new String[]{"TABLE"});
+            ResultSet resultSet = databaseMetaData.getTables(null, null, tableName, new String[]{"TABLE"});
             ans = resultSet.next();
         }catch(SQLException exception){
             System.out.println(exception);
@@ -25,9 +28,15 @@ public class DB_Connection {
     }
 
     public void createTable(String tableName) {
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = dbConnection.
+            if(tableName == "student"){
+                preparedStatement = dbConnection.
                     prepareStatement("CREATE TABLE student (id int, first_name varchar(255), last_name varchar(255), student_class int, class_section varchar(22))");
+            }else{
+                preparedStatement = dbConnection.
+                    prepareStatement("CREATE TABLE employee (id int, first_name varchar(255), last_name varchar(255))");
+            }     
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             System.out.println(exception);
@@ -38,7 +47,7 @@ public class DB_Connection {
         try {
             System.setProperty("jdbc.Driver", "org.mysql.Driver");
             dbConnection = DriverManager.
-                    getConnection("jdbc:mysql://127.0.0.1/face_recognition", "root", "");
+                    getConnection("jdbc:mysql://127.0.0.1/"+ databaseName, uname, psword);
             System.out.println("Successfuly connected to database");
         } catch (SQLException e) {
             System.out.println("Unsuccessful database connection " + e);

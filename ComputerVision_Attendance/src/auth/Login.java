@@ -28,41 +28,45 @@ public class Login extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txt_user.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_userActionPerformed(evt);
             }
         });
-        jPanel2.add(txt_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 260, -1));
+        jPanel2.add(txt_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 260, 30));
 
         jLabel1.setText("User");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
         jLabel2.setText("Password");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
         jLabel3.setText("Login");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
 
+        txt_pass.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_passActionPerformed(evt);
             }
         });
-        jPanel2.add(txt_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 260, -1));
+        jPanel2.add(txt_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 260, 30));
 
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton1.setText("Enter");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 390, 320));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 370, 310));
 
-        setSize(new java.awt.Dimension(738, 440));
+        setSize(new java.awt.Dimension(398, 360));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
