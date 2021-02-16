@@ -100,6 +100,9 @@ public class RegisterStudent extends javax.swing.JFrame {
 
         int id = Integer.parseInt(txt_id_label.getText());
         new CaptureStudentFace(id, first_name, last_name, student_class, class_section).setVisible(true);
+        
+        // close this page
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private int getClassValue() {

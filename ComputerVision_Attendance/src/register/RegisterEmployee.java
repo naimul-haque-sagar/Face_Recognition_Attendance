@@ -78,6 +78,9 @@ public class RegisterEmployee extends javax.swing.JFrame {
         int id = Integer.parseInt(txt_id_label.getText());
         
         new CaptureEmployeeFace(id, first_name, last_name).setVisible(true);
+        
+        //close this page
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

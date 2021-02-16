@@ -4,6 +4,10 @@ import attendance.EmployeeAttendance;
 import register.RegisterStudent;
 import attendance.StudentAttendance;
 import db_connection.DB_Connection;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import register.RegisterEmployee;
 
 public class Menu extends javax.swing.JFrame {
@@ -100,7 +104,7 @@ public class Menu extends javax.swing.JFrame {
         txt_title_menu.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txt_title_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_title_menu.setText("Welcome User");
-        jPanel1.add(txt_title_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 470, 30));
+        jPanel1.add(txt_title_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 470, 30));
 
         jtbAllTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtbAllTab.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
@@ -134,7 +138,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(280, 200));
 
         btnStudentRegister.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnStudentRegister.setText("Student Register");
+        btnStudentRegister.setText("Student Registration");
         btnStudentRegister.setAlignmentY(0.0F);
         btnStudentRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnStudentRegister.setPreferredSize(new java.awt.Dimension(235, 170));
@@ -153,7 +157,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(280, 200));
 
         btnEmployeeRegister.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnEmployeeRegister.setText("Employee Register");
+        btnEmployeeRegister.setText("Employee Registration");
         btnEmployeeRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEmployeeRegister.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEmployeeRegister.setPreferredSize(new java.awt.Dimension(235, 170));
@@ -168,7 +172,7 @@ public class Menu extends javax.swing.JFrame {
 
         jpRegister.add(jPanel3);
 
-        jtbAllTab.addTab("Register", jpRegister);
+        jtbAllTab.addTab("Registeration", jpRegister);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
         jPanel7.setMinimumSize(new java.awt.Dimension(580, 150));
@@ -284,24 +288,33 @@ public class Menu extends javax.swing.JFrame {
     private void btnStudentRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentRegisterActionPerformed
         new RegisterStudent().setVisible(true);
     }//GEN-LAST:event_btnStudentRegisterActionPerformed
-
+    
+    private Object[][] rowData = new Object[100][];
+    
     private void jbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDataActionPerformed
-
+        
+        int k = 0;
+        
         if (jrBtnStudent.isSelected()) {
             String[] columns = {"ID", "Fist Name", "Last Name", "Class", "Section"};
-            Object[][] data = {
-                {1, "Mr", "ABC", 8, "A"},
-                {2, "Mrs", "MNO", 6, "B"},
-                {3, "Mrs", "xyz", 5, "A"}
-            };
 
-            // database query
             db_connection.connectDatabase();
             try {
                 String sql = "SELECT * FROM student_attendance";
                 db_connection.executesql(sql);
                 while (db_connection.resultSet.next()) {
-                    System.out.println(db_connection.resultSet.getInt("id") + " " + db_connection.resultSet.getString("first_name") + " " + db_connection.resultSet.getString("last_name"));
+                    
+                    int id = db_connection.resultSet.getInt("id");
+                    String fname = db_connection.resultSet.getString("first_name");
+                    String lname = db_connection.resultSet.getString("last_name");
+                    int classValue = db_connection.resultSet.getInt("student_class");
+                    String section = db_connection.resultSet.getString("class_section");
+                    
+                    System.out.printf("%d %s %s\n", id, fname, lname); 
+                    
+                    String[] tmp = {String.valueOf(id), fname, lname, String.valueOf(classValue), section};
+
+                    rowData[k++] = tmp;
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -309,21 +322,26 @@ public class Menu extends javax.swing.JFrame {
 
             db_connection.disconnectDatabase();
 
-            createTable(columns, data);
+            createTable(columns, rowData);
         } else if (jrBtnEmployee.isSelected()) {
             String[] columns = {"ID", "Fist Name", "Last Name"};
-            Object[][] data = {
-                {1, "Mr", "ABC"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},};
-
-            // database query
+            
             db_connection.connectDatabase();
             try {
                 String sql = "SELECT * FROM employee_attendance";
                 db_connection.executesql(sql);
                 while (db_connection.resultSet.next()) {
-                    System.out.println(db_connection.resultSet.getInt("id") + " " + db_connection.resultSet.getString("first_name") + " " + db_connection.resultSet.getString("last_name"));
+                    
+                    int id = db_connection.resultSet.getInt("id");
+                    String fname = db_connection.resultSet.getString("first_name");
+                    String lname = db_connection.resultSet.getString("last_name");
+                    
+                    System.out.printf("%d %s %s\n", id, fname, lname); 
+                    
+                    String[] tmp = {String.valueOf(id), fname, lname};
+
+                    rowData[k++] = tmp;
+                    
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -331,7 +349,7 @@ public class Menu extends javax.swing.JFrame {
 
             db_connection.disconnectDatabase();
 
-            createTable(columns, data);
+            createTable(columns, rowData);
 
         } else { // do nothing  
         }

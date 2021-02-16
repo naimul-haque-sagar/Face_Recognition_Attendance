@@ -41,7 +41,7 @@ public class CaptureStudentFace extends javax.swing.JFrame {
 
     String harcascade= Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml";
     String root ,first_name,last_name,student_section;
-    int numSamples = 5, sample = 1,studentId,employeeId,student_class;
+    int numSamples = 10, sample = 1,studentId,employeeId,student_class;
     DB_Connection cd = new DB_Connection();
     
     private CaptureStudentFace.DaemonThread myThread = null;
@@ -186,7 +186,7 @@ public class CaptureStudentFace extends javax.swing.JFrame {
                                         counterLabel.setText(String.valueOf(sample));
                                         sample++;
                                     }
-                                    if (sample > 5) {
+                                    if (sample > 10) {
                                         generate();
                                         try {
                                             insertDatabase();
