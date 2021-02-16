@@ -24,7 +24,7 @@ public class RegisterStudent extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         txt_first_name = new javax.swing.JTextField();
         txt_last_name = new javax.swing.JTextField();
-        txt_office = new javax.swing.JTextField();
+        txt_section = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -58,7 +58,7 @@ public class RegisterStudent extends javax.swing.JFrame {
             }
         });
         jPanel3.add(txt_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 30));
-        jPanel3.add(txt_office, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 150, 30));
+        jPanel3.add(txt_section, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 150, 30));
 
         jLabel2.setText("Last Name");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, -1));
@@ -96,7 +96,7 @@ public class RegisterStudent extends javax.swing.JFrame {
         String last_name = txt_last_name.getText();
         
         int student_class = getClassValue();
-        String class_section = txt_office.getText();
+        String class_section = txt_section.getText();
 
         int id = Integer.parseInt(txt_id_label.getText());
         new CaptureFace(id, first_name, last_name, student_class, class_section).setVisible(true);
@@ -158,7 +158,7 @@ public class RegisterStudent extends javax.swing.JFrame {
     private javax.swing.JTextField txt_first_name;
     private javax.swing.JLabel txt_id_label;
     private javax.swing.JTextField txt_last_name;
-    private javax.swing.JTextField txt_office;
+    private javax.swing.JTextField txt_section;
     // End of variables declaration//GEN-END:variables
 
     private void setIdForRegister() {
