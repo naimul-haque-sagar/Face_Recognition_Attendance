@@ -99,7 +99,7 @@ public class RegisterStudent extends javax.swing.JFrame {
         String class_section = txt_section.getText();
 
         int id = Integer.parseInt(txt_id_label.getText());
-        new CaptureFace(id, first_name, last_name, student_class, class_section).setVisible(true);
+        new CaptureStudentFace(id, first_name, last_name, student_class, class_section).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private int getClassValue() {

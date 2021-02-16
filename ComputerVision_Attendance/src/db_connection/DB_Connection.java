@@ -33,10 +33,16 @@ public class DB_Connection {
             if("student".equals(tableName)){
                 preparedStatement = dbConnection.
                     prepareStatement("CREATE TABLE student (id int, first_name varchar(255), last_name varchar(255), student_class int, class_section varchar(22))");
-            }else{
+            }else if("employee".equals(tableName)){
                 preparedStatement = dbConnection.
                     prepareStatement("CREATE TABLE employee (id int, first_name varchar(255), last_name varchar(255))");
-            }     
+            }else if("student_attendance".equals(tableName)){
+                preparedStatement = dbConnection.
+                    prepareStatement("CREATE TABLE student_attendance (id int, first_name varchar(255), last_name varchar(255), student_class int, class_section varchar(22))");
+            }else if("employee_attendance".equals(tableName)){
+                preparedStatement = dbConnection.
+                    prepareStatement("CREATE TABLE employee_attendance (id int, first_name varchar(255), last_name varchar(255))");
+            }
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             System.out.println(exception);

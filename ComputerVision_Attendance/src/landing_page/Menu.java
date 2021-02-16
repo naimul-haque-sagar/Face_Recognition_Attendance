@@ -3,29 +3,32 @@ package landing_page;
 import attendance.EmployeeAttendance;
 import register.RegisterStudent;
 import attendance.StudentAttendance;
+import db_connection.DB_Connection;
 import register.RegisterEmployee;
 
 public class Menu extends javax.swing.JFrame {
 
+    DB_Connection db_connection = new DB_Connection();
+
     public Menu(String user) {
         initComponents();
-        txt_title_menu.setText("Welcome "+user);
-        
+        txt_title_menu.setText("Welcome " + user);
+
         this.setResizable(false);
-        
+
         // toggle btween radio buttons
         buttonGroup1.add(jrBtnStudent);
         buttonGroup1.add(jrBtnEmployee);
-        
+
         //jPanel1.setPreferredSize(new Dimension(100,100));
         //setFullscreen(true);
     }
-    
+
     /**
      * Method allows changing whether this window is displayed in fullscreen or
      * windowed mode.
-     * @param fullscreen true = change to fullscreen,
-     *                   false = change to windowed
+     *
+     * @param fullscreen true = change to fullscreen, false = change to windowed
      */
 //    public void setFullscreen( boolean fullscreen )
 //    {
@@ -42,7 +45,6 @@ public class Menu extends javax.swing.JFrame {
 //        //repaint();
 //        
 //    }
-
     private Menu() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -284,94 +286,81 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStudentRegisterActionPerformed
 
     private void jbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDataActionPerformed
-        
-        
-        if(jrBtnStudent.isSelected()) {
+
+        if (jrBtnStudent.isSelected()) {
             String[] columns = {"ID", "Fist Name", "Last Name", "Class", "Section"};
             Object[][] data = {
                 {1, "Mr", "ABC", 8, "A"},
                 {2, "Mrs", "MNO", 6, "B"},
                 {3, "Mrs", "xyz", 5, "A"}
             };
-            
+
             // database query
-            
+            db_connection.connectDatabase();
+            try {
+                String sql = "SELECT * FROM student_attendance";
+                db_connection.executesql(sql);
+                while (db_connection.resultSet.next()) {
+                    System.out.println(db_connection.resultSet.getInt("id") + " " + db_connection.resultSet.getString("first_name") + " " + db_connection.resultSet.getString("last_name"));
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            db_connection.disconnectDatabase();
+
             createTable(columns, data);
-        }
-        
-        else if (jrBtnEmployee.isSelected()){
+        } else if (jrBtnEmployee.isSelected()) {
             String[] columns = {"ID", "Fist Name", "Last Name"};
             Object[][] data = {
                 {1, "Mr", "ABC"},
                 {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"},
-                {2, "Mrs", "MNO"},
-                {3, "Mrs", "xyz"}
-            };
-            
+                {3, "Mrs", "xyz"},};
+
             // database query
-            
+            db_connection.connectDatabase();
+            try {
+                String sql = "SELECT * FROM employee_attendance";
+                db_connection.executesql(sql);
+                while (db_connection.resultSet.next()) {
+                    System.out.println(db_connection.resultSet.getInt("id") + " " + db_connection.resultSet.getString("first_name") + " " + db_connection.resultSet.getString("last_name"));
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            db_connection.disconnectDatabase();
+
             createTable(columns, data);
-           
-        }
-        else { // do nothing  
+
+        } else { // do nothing  
         }
     }//GEN-LAST:event_jbDataActionPerformed
     private void createTable(String[] columns, Object[][] data) {
         ////dataTable.setFont(new java.awt.Font("Dialog", 0, 12));
-        dataTable.setModel(new javax.swing.table.DefaultTableModel(data, columns){
-            Class[] types = new Class [] {
+        dataTable.setModel(new javax.swing.table.DefaultTableModel(data, columns) {
+            Class[] types = new Class[]{
                 java.lang.Object.class,
-                java.lang.Object.class, 
-                java.lang.Object.class, 
-                java.lang.Object.class, 
-                java.lang.Object.class 
+                java.lang.Object.class,
+                java.lang.Object.class,
+                java.lang.Object.class,
+                java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
     }
-    
-    
+
+
     private void jbStudentAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStudentAttendanceActionPerformed
         new StudentAttendance().setVisible(true);
     }//GEN-LAST:event_jbStudentAttendanceActionPerformed

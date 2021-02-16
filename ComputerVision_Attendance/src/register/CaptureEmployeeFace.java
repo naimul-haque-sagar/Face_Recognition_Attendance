@@ -43,7 +43,7 @@ public class CaptureEmployeeFace extends javax.swing.JFrame {
 
     String harcascade= Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml";
     String root ,first_name,last_name;
-    int numSamples = 5, sample = 1,employeeId;
+    int numSamples = 10, sample = 1,employeeId;
     DB_Connection cd = new DB_Connection();
     
     private CaptureEmployeeFace.DaemonThread myThread = null;
@@ -85,7 +85,7 @@ public class CaptureEmployeeFace extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Capture 25 snapshot");
+        jLabel1.setText("Capture 10 snapshot");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 420, 30));
 
         label_photo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(200, 200, 200)));
@@ -187,7 +187,7 @@ public class CaptureEmployeeFace extends javax.swing.JFrame {
                                         counterLabel.setText(String.valueOf(sample));
                                         sample++;
                                     }
-                                    if (sample > 5) {
+                                    if (sample > 10) {
                                         generate();
                                         try {
                                             insertDatabase();

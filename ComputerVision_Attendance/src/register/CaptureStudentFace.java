@@ -37,21 +37,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Student;
 
-public class CaptureFace extends javax.swing.JFrame {
+public class CaptureStudentFace extends javax.swing.JFrame {
 
     String harcascade= Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml";
     String root ,first_name,last_name,student_section;
     int numSamples = 5, sample = 1,studentId,employeeId,student_class;
     DB_Connection cd = new DB_Connection();
     
-    private CaptureFace.DaemonThread myThread = null;
+    private CaptureStudentFace.DaemonThread myThread = null;
     VideoCapture webSource = null;
     Mat cameraImage = new Mat();
     CascadeClassifier cascade = new CascadeClassifier(harcascade);
     BytePointer mem = new BytePointer();
     RectVector detectedFaces = new RectVector();
 
-    public CaptureFace(int id,String first_name,String last_name,int student_class,String student_section){
+    public CaptureStudentFace(int id,String first_name,String last_name,int student_class,String student_section){
         initComponents();
         this.studentId=id;
         this.first_name=first_name;
@@ -61,7 +61,7 @@ public class CaptureFace extends javax.swing.JFrame {
         startCamera();
     }
 
-    private CaptureFace() {
+    private CaptureStudentFace() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -84,7 +84,7 @@ public class CaptureFace extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Capture 25 snapshot");
+        jLabel1.setText("Capture 10 snapshot");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 420, 30));
 
         label_photo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(200, 200, 200)));
@@ -122,20 +122,21 @@ public class CaptureFace extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CaptureFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CaptureStudentFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CaptureFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CaptureStudentFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CaptureFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CaptureStudentFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CaptureFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CaptureStudentFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CaptureFace().setVisible(true);
+                new CaptureStudentFace().setVisible(true);
             }
         });
     }
@@ -190,7 +191,7 @@ public class CaptureFace extends javax.swing.JFrame {
                                         try {
                                             insertDatabase();
                                         } catch (SQLException ex) {
-                                            Logger.getLogger(CaptureFace.class.getName()).log(Level.SEVERE, null, ex);
+                                            Logger.getLogger(CaptureStudentFace.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                         System.out.println("person register done");
                                         stopCamera();
@@ -275,7 +276,7 @@ public class CaptureFace extends javax.swing.JFrame {
 
     public void startCamera() {
         webSource=new VideoCapture(0);
-        myThread=new CaptureFace.DaemonThread();
+        myThread=new CaptureStudentFace.DaemonThread();
         Thread t=new Thread(myThread);
         t.setDaemon(true);
         myThread.runnable=true;

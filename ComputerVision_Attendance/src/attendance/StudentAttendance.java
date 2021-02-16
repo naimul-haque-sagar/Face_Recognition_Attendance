@@ -1,4 +1,3 @@
-
 package attendance;
 
 import java.awt.Graphics;
@@ -27,24 +26,25 @@ import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import db_connection.DB_Connection;
-
 import config.Properties;
+import db_connection.Student_Attendance_Operation;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class StudentAttendance extends javax.swing.JFrame {
-    private StudentAttendance.DaemonThread myThread = null;
-    VideoCapture webSource = null;
+    private boolean isDispose = true;
+    private StudentAttendance.TakeAttendance myThread = null;
+    VideoCapture videoCapture = null;
     Mat cameraImage = new Mat();
     CascadeClassifier cascade = new CascadeClassifier( Properties.basePath + "Computer_vision_attendance/haarcascade_frontalface_alt.xml");
-    BytePointer mem = new BytePointer();
+    BytePointer bytePointer = new BytePointer();
     FaceRecognizer recognizer=LBPHFaceRecognizer.create();
     RectVector detectedFaces = new RectVector();
-    String root ,firstNamePerson,lastNamePerson,officePerson,dobPerson;
+    String root,firstNamePerson,lastNamePerson,officePerson,dobPerson;
     int idPerson;
-    DB_Connection cd = new DB_Connection();
-
+    Student_Attendance_Operation attendanceOperation= new Student_Attendance_Operation();
+    DB_Connection db_connection = new DB_Connection();
     public StudentAttendance() {
         initComponents();
         this.setResizable(false);
@@ -52,7 +52,6 @@ public class StudentAttendance extends javax.swing.JFrame {
         recognizer.setThreshold(80);
         startCamera();
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,45 +100,6 @@ public class StudentAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StudentAttendance().setVisible(true);
@@ -154,57 +114,43 @@ public class StudentAttendance extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel label_photo;
     // End of variables declaration//GEN-END:variables
-class DaemonThread implements Runnable {
-
+class TakeAttendance implements Runnable {
         protected volatile boolean runnable = false;
-
         @Override
         public void run() {
             synchronized (this) {
                 while (runnable) {
                     try {
-                        if (webSource.grab()) {
-                            webSource.retrieve(cameraImage);
-                            Graphics g = label_photo.getGraphics();
-
+                        if (videoCapture.grab()) {
+                            videoCapture.retrieve(cameraImage);
+                            Graphics graphics = label_photo.getGraphics();
                             Mat imageGray = new Mat();
                             cvtColor(cameraImage, imageGray, COLOR_BGRA2GRAY);
-
                             RectVector detectedFace = new RectVector();
                             cascade.detectMultiScale(imageGray, detectedFace, 1.1, 2, 0, new Size(150, 150), new Size(500, 500));
-
                             for (int i = 0; i < detectedFace.size(); i++) {
                                 Rect dadosFace = detectedFace.get(i);
                                 rectangle(cameraImage, dadosFace, new Scalar(0, 255, 0, 0));
                                 Mat faceCapturada = new Mat(imageGray, dadosFace);
                                 opencv_imgproc.resize(faceCapturada, faceCapturada, new Size(160, 160));
-
                                 IntPointer rotulo = new IntPointer(1);
                                 DoublePointer confidence = new DoublePointer(1);
                                 recognizer.predict(faceCapturada, rotulo, confidence);
                                 int prediction = rotulo.get(0);
                                 String name = null;
                                 if (prediction == -1) {
-//                                    label_name.setText("Not Recognized");
-//                                    labelOffice.setText("Not Found");
                                     idPerson = 0;
                                 } else {
                                     System.out.println(confidence.get(0));
                                     idPerson = prediction;
                                     rec();
                                 }
-                                //int x = Math.max(dadosFace.tl().x() - 10, 0);
-                                //int y = Math.max(dadosFace.tl().y() - 10, 0);
-                                //putText(imagemCamera, nome, new Point(x, y), FONT_HERSHEY_PLAIN, 1.7, new Scalar(0, 255, 0, 2));
                             }
-
-                            imencode(".bmp", cameraImage, mem);
-                            Image im = ImageIO.read(new ByteArrayInputStream(mem.getStringBytes()));
+                            imencode(".bmp", cameraImage, bytePointer);
+                            Image im = ImageIO.read(new ByteArrayInputStream(bytePointer.getStringBytes()));
                             BufferedImage buff = (BufferedImage) im;
-
-                            if (g.drawImage(buff, 0, 0, getWidth(), getHeight() - 100, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
+                            if (graphics.drawImage(buff, 0, 0, getWidth(), getHeight() - 100, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                 if (runnable == false) {
-                                    System.out.println("Saved a Picture");
                                     this.wait();
                                 }
                             }
@@ -214,63 +160,51 @@ class DaemonThread implements Runnable {
                 }
             }
         }
-
         private void rec() {
             SwingWorker worker=new SwingWorker() {
-
                 @Override
                 protected Object doInBackground() throws Exception {
-                    cd.connectDatabase();
+                    db_connection.connectDatabase();
                     try {
                         String sql="SELECT * FROM student WHERE id ="+String.valueOf(idPerson);
-                        cd.executesql(sql);
-                        while(cd.resultSet.next()){
-//                            label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
-//                            labelOffice.setText(cd.resultSet.getString("office"));
-                            System.out.println(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
-                            System.out.println("person : "+cd.resultSet.getString("id"));
-                            Array ident=cd.resultSet.getArray(2);
+                        db_connection.executesql(sql);
+                        while(db_connection.resultSet.next()){
+                            attendanceOperation.storeStudentAttendance(idPerson);
+                            Array ident=db_connection.resultSet.getArray(2);
                             String[] person=(String[]) ident.getArray();
                             for (int i = 0; i < person.length; i++) {
                                 System.out.println(person[i]);
                             }
                         }
-                    } catch (Exception e) {
-                    
-                    }
-                    cd.disconnectDatabase();
+                    } catch (Exception e) {}
+                     db_connection.disconnectDatabase();
                     return null;   
                 }
             };
             worker.execute();
         }
-
     }
     public void stopCamera() {
         myThread.runnable = false;
-        webSource.release();
-        
+        videoCapture.release();
         if(isDispose) 
             dispose();
     }
 
     public void startCamera() {
-        webSource=new VideoCapture(0);
-        myThread=new StudentAttendance.DaemonThread();
+        videoCapture=new VideoCapture(0);
+        myThread=new StudentAttendance.TakeAttendance();
         Thread t=new Thread(myThread);
         t.setDaemon(true);
         myThread.runnable=true;
         t.start();
     }
     
-    //TODO: on close action - call stopCamera
     @Override
     public synchronized void addWindowListener(WindowListener listener) {
-        
         listener = new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                
                 stopCamera();
             }
         };
@@ -278,11 +212,8 @@ class DaemonThread implements Runnable {
 
     @Override
     public void dispose() {
-        isDispose = false; // otherwise cause an infinite loop 
-        
+        isDispose = false;
         stopCamera();
         super.dispose();
     }
-    
-    private boolean isDispose = true;
 }

@@ -78,7 +78,7 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String user=txt_user.getText();
         String password=txt_pass.getText();
-        if( password.equals("admin")){
+        if(user.equals("admin") &&password.equals("admin")){
             Menu menu=new Menu(user);
             menu.setVisible(true);
             dispose();

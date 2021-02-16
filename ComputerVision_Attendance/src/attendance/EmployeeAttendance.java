@@ -29,6 +29,7 @@ import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import db_connection.DB_Connection;
 
 import config.Properties;
+import db_connection.Employee_Attendance_Operation;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -43,6 +44,7 @@ public class EmployeeAttendance extends javax.swing.JFrame {
     RectVector detectedFaces = new RectVector();
     String root ,firstNamePerson,lastNamePerson,officePerson,dobPerson;
     int idPerson;
+    Employee_Attendance_Operation employeeAttendanceOperation = new Employee_Attendance_Operation();
     DB_Connection cd = new DB_Connection();
 
     public EmployeeAttendance() {
@@ -186,10 +188,9 @@ class DaemonThread implements Runnable {
                         String sql="SELECT * FROM employee WHERE id ="+String.valueOf(idPerson);
                         cd.executesql(sql);
                         while(cd.resultSet.next()){
-//                            label_name.setText(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
-//                            labelOffice.setText(cd.resultSet.getString("office"));
                             System.out.println(cd.resultSet.getString("first_name")+" "+ cd.resultSet.getString("last_name"));
-                            System.out.println("person : "+cd.resultSet.getString("id"));
+                            System.out.println("employee : "+cd.resultSet.getString("id"));
+                            employeeAttendanceOperation.storeEmployeeAttendance(idPerson);
                             Array ident=cd.resultSet.getArray(2);
                             String[] person=(String[]) ident.getArray();
                             for (int i = 0; i < person.length; i++) {
