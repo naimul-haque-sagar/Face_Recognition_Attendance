@@ -29,7 +29,7 @@ public class RegisterStudent extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbClass = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -77,8 +77,8 @@ public class RegisterStudent extends javax.swing.JFrame {
         });
         jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 150, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Class 1", "Class 2", "Class 3", "Class 4", "Class 4", "Class 5", "Class 6", "Class 7", "Class 8", "Class 9", "Class 10" }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 150, 30));
+        jcbClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        jPanel3.add(jcbClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 150, 30));
 
         jLabel6.setText("First Name");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
@@ -94,14 +94,18 @@ public class RegisterStudent extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String first_name = txt_first_name.getText();
         String last_name = txt_last_name.getText();
-
-        int student_class = 4;
-        String class_section = "a";
+        
+        int student_class = getClassValue();
+        String class_section = txt_office.getText();
 
         int id = Integer.parseInt(txt_id_label.getText());
         new CaptureFace(id, first_name, last_name, student_class, class_section).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private int getClassValue() {
+        return Integer.parseInt(jcbClass.getSelectedItem().toString());
+    }
+    
     private void txt_last_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_last_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_last_nameActionPerformed
@@ -143,7 +147,6 @@ public class RegisterStudent extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -151,6 +154,7 @@ public class RegisterStudent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JComboBox<String> jcbClass;
     private javax.swing.JTextField txt_first_name;
     private javax.swing.JLabel txt_id_label;
     private javax.swing.JTextField txt_last_name;
